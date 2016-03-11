@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")" type="text/javascript"></script>
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            <div id="title">
+                <h1>My MVC Application</h1>
+            </div>
+            <div id="logindisplay">
+                @Html.Partial("_LogInPartial")
+            </div>
+            <div id="menucontainer">
+                <ul id="menu">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Protected", "Protected", "Home")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Admin", "Admin", "Home")</li>
+                    }
+                    @if (User.IsInRole("Company"))
+                    {
+                        <li>@Html.ActionLink("Company", "Company", "Home")</li>
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("Company"))
+                    {
+                        <li>@Html.ActionLink("Admin Or Company", "AdminOrCompany", "Home")</li>
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("User"))
+                    {
+                        <li>@Html.ActionLink("Admin Or User", "AdminOrUser", "Home")</li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Manage Users", "Index", "Manage")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            @RenderBody()
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+</body>
+</html>
